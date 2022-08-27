@@ -1,7 +1,10 @@
 package com.example.prestamos.controllers;
 
 import com.example.prestamos.entities.User;
+import com.example.prestamos.services.Response;
 import com.example.prestamos.services.UserService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +29,10 @@ public class IndexContoller {
     @RequestMapping("getusuarios")
     public ArrayList<User> getUsuarios(){
         return this.userService.selectAll();
+    }
+
+    @PostMapping("createusuario")
+    public Response createUser(@RequestBody User request){
+        return this.userService.createUser(request);
     }
 }

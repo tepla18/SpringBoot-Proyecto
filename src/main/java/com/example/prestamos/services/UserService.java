@@ -20,4 +20,12 @@ public class UserService {
         return (ArrayList<User>) this.userRepository.findAll();
     }
 
+    public Response createUser(User data){
+        Response response = new Response();
+        this.userRepository.save(data);
+        response.setCode(200);
+        response.setMessage("usuario registrado correctamente");
+        return response;
+    }
+
 }
