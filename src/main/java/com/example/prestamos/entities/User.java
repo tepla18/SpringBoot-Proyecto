@@ -17,13 +17,13 @@ public class User {
     private int edad;
     @Column (name = "numeroDocumento")
     private String numeroDocumento;
-
     @Column (name = "correoElectronico")
     private String correoElectronico;
 
     @ManyToOne
     @JoinColumn(name = "tipoDocumentoId")
     private TipoDocumento tipoDocumento;
+
     public int getId() {
         return id;
     }

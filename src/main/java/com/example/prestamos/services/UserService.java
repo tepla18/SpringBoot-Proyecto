@@ -27,5 +27,4 @@ public class UserService {
         response.setMessage("usuario registrado correctamente");
         return response;
     }
-
 }

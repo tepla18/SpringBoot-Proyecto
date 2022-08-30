@@ -10,7 +10,7 @@ public class TipoDocumento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "nombreDocumento", nullable = false, length = 30)
-    private String nombre;
+    private String nombreDocumento;
 
     public int getId() {
         return id;
@@ -20,12 +20,12 @@ public class TipoDocumento {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreDocumento() {
+        return nombreDocumento;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreDocumento(String nombreDocumento) {
+        this.nombreDocumento = nombreDocumento;
     }
 
 }
