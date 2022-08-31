@@ -13,6 +13,7 @@ import java.util.ArrayList;
 @RestController
 public class TipoDocumetoController {
 
+    //inicilizar dependencias
     private TipoDocumentoService tipoDocumentoService;
 
     public TipoDocumetoController(TipoDocumentoService service){

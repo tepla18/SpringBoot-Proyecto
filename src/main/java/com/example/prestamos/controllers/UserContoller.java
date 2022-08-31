@@ -3,10 +3,7 @@ package com.example.prestamos.controllers;
 import com.example.prestamos.entities.User;
 import com.example.prestamos.services.Response;
 import com.example.prestamos.services.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -21,27 +18,33 @@ public class UserContoller {
         this.userService = service;
     }
 
-    /*@RequestMapping("/")
-    public String index(){
-        return "Hello Developers";
-    }*/
-
+    //buscar todos los usuarios
     @RequestMapping("getusuarios")
     public ArrayList<User> getUsuarios(){
         return this.userService.selectAll();
     }
 
+    //buscar usuario por id
+    @RequestMapping("getusuario/{id}")
+    public User getUsuario(@PathVariable int id){
+        return this.userService.selectById(id);
+    }
+
+    //crear usuarios
     @PostMapping("createusuario")
     public Response createUser(@RequestBody User request){
         return this.userService.createUser(request);
     }
-/*
-    private TipoDocumentoService tipoDocumentoService;
-    public IndexContoller(TipoDocumentoService service){
-        this.tipoDocumentoService = service;
+
+    // Eliminar un usuario
+    @DeleteMapping("delete/{id}")
+    public Response deleteUsuario(@PathVariable int id){
+        return this.userService.deleteUserById(id);
     }
-    @RequestMapping("gettipodocumento")
-    public ArrayList<TipoDocumento> getTipoDocumento(){
-        return this.tipoDocumentoService.selectAll();
-    }*/
+
+    // Actualizar usuario
+    @PutMapping("actualizarusuario")
+    public Response updateUser(@RequestBody User request){
+        return this.userService.actualizarUsuario(request);
+    }
 }

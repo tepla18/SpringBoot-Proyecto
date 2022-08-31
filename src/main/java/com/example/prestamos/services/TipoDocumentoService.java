@@ -20,9 +20,20 @@ public class TipoDocumentoService {
         return (ArrayList<TipoDocumento>) this.tipoDocumentoRepository.findAll();
     }
 
+    // Metodo que permite crear un documento
     public Response createTipoDocumento(TipoDocumento data){
-        Response response = new Response();
+
+        //Validar si el documento ya existe
+        /*ArrayList<TipoDocumento> documentos = this.tipoDocumentoRepository.findByNombre(data.getNombreDocumento());
+        if(documentos != null && documentos.size() >= 0){
+            Response response = new Response();
+            response.setCode(500);
+            response.setMessage("tipo documento ya esta registrado");
+            return response;
+        }*/
+        //Crear el documento
         this.tipoDocumentoRepository.save(data);
+        Response response = new Response();
         response.setCode(200);
         response.setMessage("tipo documento registrado correctamente");
         return response;
