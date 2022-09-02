@@ -37,14 +37,19 @@ public class UserContoller {
     }
 
     // Eliminar un usuario
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("deleteusuario/{id}")
     public Response deleteUsuario(@PathVariable int id){
         return this.userService.deleteUserById(id);
     }
 
     // Actualizar usuario
-    @PutMapping("actualizarusuario")
+    @PutMapping("actualizarusuario/{id}")
     public Response updateUser(@RequestBody User request){
         return this.userService.actualizarUsuario(request);
+    }
+
+    @PostMapping("login")
+    public Response loginUser(@RequestBody User request){
+        return this.userService.loginUser(request);
     }
 }

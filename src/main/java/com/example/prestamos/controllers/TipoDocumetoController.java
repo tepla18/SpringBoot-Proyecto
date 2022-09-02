@@ -3,10 +3,7 @@ package com.example.prestamos.controllers;
 import com.example.prestamos.entities.TipoDocumento;
 import com.example.prestamos.services.Response;
 import com.example.prestamos.services.TipoDocumentoService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -20,9 +17,14 @@ public class TipoDocumetoController {
         this.tipoDocumentoService = service;
     }
 
-    @RequestMapping("gettipodocumento")
-    public ArrayList<TipoDocumento> getTipoDocumento(){
+    @RequestMapping("gettipodocumentos")
+    public ArrayList<TipoDocumento> getTipoDocumentos(){
         return this.tipoDocumentoService.selectAll();
+    }
+
+    @RequestMapping("gettipodocumento/{id}")
+    public TipoDocumento gettipodocumento(@PathVariable int id){
+        return this.tipoDocumentoService.selectById(id);
     }
 
     @PostMapping("createtipodocumento")
@@ -30,4 +32,13 @@ public class TipoDocumetoController {
         return this.tipoDocumentoService.createTipoDocumento(request);
     }
 
+    @DeleteMapping("deletetipodocumento/{id}")
+    public Response deleteTipoDocumento(@PathVariable int id){
+        return this.tipoDocumentoService.deleteTipoDocumentoById(id);
+    }
+
+    @PutMapping("actualizartipodocumento/{id}")
+    public Response updateTipoDocumento(@RequestBody TipoDocumento request){
+        return this.tipoDocumentoService.actualizarTipoDocumento(request);
+    }
 }
