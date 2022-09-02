@@ -1,11 +1,15 @@
 package com.example.prestamos.services;
 
+
 import com.example.prestamos.entities.User;
 import com.example.prestamos.repository.InterfaceUserRepository;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -26,6 +30,11 @@ public class UserService {
         Response response = new Response();
 
         //validar correo...
+        if(!validarEmailAddress(data.getCorreoElectronico())){
+            response.setCode(500);
+            response.setMessage("Error, el usuario dado no es válido.");
+            return  response;
+        }
 
         //validar password
         if (data.getPassword().equals(null) && data.getPassword().equals("")) {
@@ -33,6 +42,7 @@ public class UserService {
             response.setMessage("Contraseña incorrecta");
             return response;
         }
+
         ArrayList<User> exists = this. userRepository.validaCorreo(data.getCorreoElectronico());
         if(exists != null && exists.size() > 0){
             response.setCode(500);
@@ -135,6 +145,11 @@ public class UserService {
         Response response = new Response();
 
         //validar correo...
+        if(!validarEmailAddress(data.getCorreoElectronico())){
+            response.setCode(500);
+            response.setMessage("Error, el usuario dado no es válido.");
+            return  response;
+        }
 
         //validar password
         if (data.getPassword().equals(null) && data.getPassword().equals("")) {
@@ -154,4 +169,13 @@ public class UserService {
         response.setMessage("Error, datos de acceso no son validos");
         return response;
     }
+
+    public boolean validarEmailAddress(String email) {
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher =emailPat.matcher(email);
+        return matcher.find();
+    }
+
+
 }
