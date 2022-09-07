@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @RestController
 public class UserContoller {
 
-    // Se coloca una propiedad del tipo uderservice
+    // Se coloca una propiedad del tipo userservice
     // para poder trabajar con la logica de negocio de la aplicacion
     private UserService userService;
     // por medio de la inyeccion de dependencias se iniaciliza el servicio
@@ -48,6 +48,7 @@ public class UserContoller {
         return this.userService.actualizarUsuario(request);
     }
 
+    // Login
     @PostMapping("login")
     public Response loginUser(@RequestBody User request){
         return this.userService.loginUser(request);

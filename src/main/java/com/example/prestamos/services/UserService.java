@@ -43,7 +43,8 @@ public class UserService {
             return response;
         }
 
-        ArrayList<User> exists = this. userRepository.validaCorreo(data.getCorreoElectronico());
+        // validar que no se repita el correo
+        ArrayList<User> exists = this.userRepository.validaCorreo(data.getCorreoElectronico());
         if(exists != null && exists.size() > 0){
             response.setCode(500);
             response.setMessage("correo electronico ya esta en uso");
@@ -57,8 +58,8 @@ public class UserService {
     }
 
     // Buscar usuario por Id
-    public User selectById(int Id){
-        Optional<User> exists = this.userRepository.findById(Id);
+    public User selectById(int id){
+        Optional<User> exists = this.userRepository.findById(id);
         if (exists.isPresent()){
             return exists.get();
         }
@@ -98,42 +99,50 @@ public class UserService {
             response.setMessage("Error, el usuario no existe en la base de datos");
             return response;
         }
+        // Validar nombre
         if (data.getCorreoElectronico().equals(null) || data.getCorreoElectronico().equals("")){
             response.setCode(500);
             response.setMessage("Error, nombre no especificado");
             return response;
         }
+        // Validar apellido
         if (data.getCorreoElectronico().equals(null) || data.getCorreoElectronico().equals("")){
             response.setCode(500);
             response.setMessage("Error, apellido no especificado");
             return response;
         }
+        // Validar tipo de documento
         if (data.getCorreoElectronico().equals(null) || data.getCorreoElectronico().equals("")){
             response.setCode(500);
             response.setMessage("Error, tipo documento no especificado");
             return response;
         }
+        // Validar numero de documento
         if (data.getCorreoElectronico().equals(null) || data.getCorreoElectronico().equals("")){
             response.setCode(500);
             response.setMessage("Error, numero de documento no especificado");
             return response;
         }
+        // Validar edad
         if (data.getCorreoElectronico().equals(null) || data.getCorreoElectronico().equals("")){
             response.setCode(500);
             response.setMessage("Error, edad no especificada");
             return response;
         }
+        // Validar correo
         if (data.getCorreoElectronico().equals(null) || data.getCorreoElectronico().equals("")){
             response.setCode(500);
             response.setMessage("Error, correo no especificado");
             return response;
         }
+        // Actulizar datos
         exists.setNombres(data.getNombres());
         exists.setApellidos(data.getApellidos());
         exists.setTipoDocumento(data.getTipoDocumento());
         exists.setNumeroDocumento(data.getNumeroDocumento());
         exists.setEdad(data.getEdad());
         exists.setCorreoElectronico(data.getCorreoElectronico());
+
         this.userRepository.save(exists);
         response.setCode(200);
         response.setMessage("Usuario modificado crectamente");
@@ -170,10 +179,11 @@ public class UserService {
         return response;
     }
 
-    public boolean validarEmailAddress(String email) {
+    // Validar correo electronico
+    public boolean validarEmailAddress(String correoElectronico) {
         String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
         Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher =emailPat.matcher(email);
+        Matcher matcher =emailPat.matcher(correoElectronico);
         return matcher.find();
     }
 
